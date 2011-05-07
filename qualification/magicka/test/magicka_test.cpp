@@ -33,15 +33,34 @@ void require_collection_equals(T left, T right)
 
 BOOST_AUTO_TEST_CASE(test_empty)
 {
-    std::vector<char> elements;
-    BOOST_REQUIRE(invoke(elements).empty());
+    std::vector<char> elements, expected;
+    std::vector<Combination> combinations;
+    std::vector<Opposition> oppositions;
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
 }
 
 BOOST_AUTO_TEST_CASE(test_sample_1)
 {
     std::vector<char> elements;
     elements += 'E', 'A';
+    std::vector<Combination> combinations;
+    std::vector<Opposition> oppositions;
     std::vector<char> expected;
     expected += 'E', 'A';
-    require_collection_equals(expected, invoke(elements));
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
+}
+
+BOOST_AUTO_TEST_CASE(test_sample_2)
+{
+    std::vector<char> elements;
+    elements += 'R', 'R', 'Q', 'R';
+    std::vector<Combination> combinations;
+    combinations.push_back(Combination('Q', 'R', 'I'));
+    std::vector<Opposition> oppositions;
+    std::vector<char> expected;
+    expected += 'R', 'I', 'R';
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
 }
