@@ -22,7 +22,23 @@ void process(const std::string& input_file, const std::string& output_file)
       if (line.empty())
          continue;
 
-      // TODO: I/O
+      std::vector<std::pair<Robots, int> > sequence;
+      typedef boost::split_iterator<std::string::iterator>
+          string_split_iterator;
+      string_split_iterator it = boost::make_split_iterator(
+          line, boost::first_finder(" ", boost::is_equal()));
+      for (it++; it != string_split_iterator(); it++) {
+          std::pair<Robots, int> button;
+          button.first = (*it == std::string("O")) ? ORANGE : BLUE;
+          it++;
+          if (it == string_split_iterator())
+              break;
+          button.second = boost::lexical_cast<int>(*it);
+          sequence.push_back(button);
+      }
+      output << "Case #" << i << ": "
+             << time_required_for(sequence)
+             << std::endl;
    }
 }
 
