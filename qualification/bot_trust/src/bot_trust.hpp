@@ -32,8 +32,7 @@ inline void move_robots(std::vector<std::pair<Robots, int> >::iterator& it,
     int current_button = it->second;
     if (active_robot.pos == current_button) {
         // Button pressed
-        if (active_robot.buttons.size() > 0)
-            active_robot.buttons.pop();
+        active_robot.buttons.pop();
         it++;
     } else
         active_robot.pos = move_toward(active_robot.pos, current_button);
