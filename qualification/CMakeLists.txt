@@ -1,1 +1,2 @@
 add_subdirectory(bot_trust)
+add_subdirectory(magicka)
