@@ -17,16 +17,33 @@ struct Opposition {
     Opposition(char first, char second) : first(first), second(second) {}
 };
 
-inline char find_combination(std::vector<Combination> combination, char first,
-                             char second)
+inline char find_combination(char first, char second,
+                             std::vector<Combination>& combinations)
 {
-    bool was_combination = false;
-    BOOST_FOREACH (Combination c, combination)
+    BOOST_FOREACH (Combination c, combinations)
         if ((first == c.first && second == c.second)
             || (first == c.second && second == c.first)) {
             return c.result;
         }
     return 0;
+}
+
+template<class T, class V>
+inline bool collection_contains(T collection, V element)
+{
+    return std::find(collection.begin(), collection.end(), element) !=
+        collection.end();
+}
+
+inline bool opposes(char new_element, std::vector<char>& elements,
+                    std::vector<Opposition>& oppositions)
+{
+    BOOST_FOREACH (Opposition o, oppositions)
+        if ((new_element == o.first && collection_contains(elements, o.second))
+            || (new_element == o.second
+                && collection_contains(elements, o.first)))
+            return true;
+    return false;
 }
 
 inline std::vector<char> invoke(std::vector<char>& elements,
@@ -40,11 +57,14 @@ inline std::vector<char> invoke(std::vector<char>& elements,
     std::vector<char> invoked;
     BOOST_FOREACH (char element, elements) {
         if (invoked.size() > 0) {
-            char combination = find_combination(combinations, element,
-                                                invoked.back());
+            char combination = find_combination(element, invoked.back(),
+                                                combinations);
             if (combination != 0) {
                 invoked.pop_back();
                 invoked.push_back(combination);
+                continue;
+            } else if (opposes(element, invoked, oppositions)) {
+                invoked.clear();
                 continue;
             }
         }

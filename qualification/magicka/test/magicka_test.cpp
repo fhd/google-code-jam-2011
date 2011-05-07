@@ -64,3 +64,43 @@ BOOST_AUTO_TEST_CASE(test_sample_2)
     require_collection_equals(expected,
                               invoke(elements, combinations, oppositions));
 }
+
+BOOST_AUTO_TEST_CASE(test_sample_3)
+{
+    std::vector<char> elements;
+    elements += 'F', 'A', 'Q', 'F', 'D', 'F', 'Q';
+    std::vector<Combination> combinations;
+    combinations.push_back(Combination('Q', 'F', 'T'));
+    std::vector<Opposition> oppositions;
+    oppositions.push_back(Opposition('Q', 'F'));
+    std::vector<char> expected;
+    expected += 'F', 'D', 'T';
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
+}
+
+BOOST_AUTO_TEST_CASE(test_sample_4)
+{
+    std::vector<char> elements;
+    elements += 'Q', 'E', 'E', 'E', 'E', 'R', 'A';
+    std::vector<Combination> combinations;
+    combinations.push_back(Combination('E', 'E', 'Z'));
+    std::vector<Opposition> oppositions;
+    oppositions.push_back(Opposition('Q', 'E'));
+    std::vector<char> expected;
+    expected += 'Z', 'E', 'R', 'A';
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
+}
+
+BOOST_AUTO_TEST_CASE(test_sample_5)
+{
+    std::vector<char> elements;
+    elements += 'Q', 'W';
+    std::vector<Combination> combinations;
+    std::vector<Opposition> oppositions;
+    oppositions.push_back(Opposition('Q', 'W'));
+    std::vector<char> expected;
+    require_collection_equals(expected,
+                              invoke(elements, combinations, oppositions));
+}
