@@ -1,2 +1,3 @@
 add_subdirectory(bot_trust)
 add_subdirectory(magicka)
+add_subdirectory(candy_splitting)
