@@ -5,6 +5,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/foreach.hpp>
 
 #include "candy_splitting.hpp"
 
@@ -16,11 +17,27 @@ void process(const std::string& input_file, const std::string& output_file)
    std::ofstream output(output_file.c_str());
    std::string line;
    std::getline(input, line); // Ignore the first line.
-   for (int i = 1; std::getline(input, line); i++) {
+   int j = 1;
+   for (int i = 0; std::getline(input, line); i++) {
       if (line.empty())
          continue;
 
-      // TODO: I/O
+      // Only every second line is relevant.
+      if (i % 2 == 0)
+          continue;
+
+      std::vector<std::string> elements;
+      boost::split(elements, line, boost::is_any_of(" "));
+
+      std::vector<int> candy;
+      BOOST_FOREACH (std::string s, elements)
+          candy.push_back(boost::lexical_cast<int>(s));
+
+      int seans_candy = candy_to_keep(candy);
+      output << "Case #" << j++ << ": "
+             << (seans_candy > 0
+                 ? boost::lexical_cast<std::string>(seans_candy) : "NO")
+             << std::endl;
    }
 }
 
