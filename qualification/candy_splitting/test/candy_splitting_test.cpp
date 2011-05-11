@@ -42,3 +42,10 @@ BOOST_AUTO_TEST_CASE(test_sample_2)
     BOOST_REQUIRE_EQUAL(11, candy_to_keep(candy));
 }
 
+BOOST_AUTO_TEST_CASE(test_order)
+{
+    std::vector<int> candy;
+    candy += 3, 6, 5;
+    BOOST_REQUIRE_EQUAL(11, candy_to_keep(candy));
+}
+

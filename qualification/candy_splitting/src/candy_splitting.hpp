@@ -19,8 +19,9 @@ inline int sum(std::vector<int>& numbers)
 
 inline int candy_to_keep(std::vector<int>& candy)
 {
-    // This shouldn't work for all inputs, because only a single permuation of
-    // the candy is considered. Furthermore, the first possibility is returned.
+    // TODO: This shouldn't work for all inputs, because only a single
+    // permuation of the candy is considered.
+    int max = 0;
     for (int i = 0; i < candy.size(); i++) {
         std::vector<int> sean(candy), patrick;
         for (int j = 0; j <= i; j++) {
@@ -29,8 +30,11 @@ inline int candy_to_keep(std::vector<int>& candy)
         }
 
         if (!patrick.empty() && !sean.empty()
-            && patrick_sum(patrick) == patrick_sum(sean))
-            return sum(sean);
+            && patrick_sum(patrick) == patrick_sum(sean)) {
+            int sean_sum = sum(sean);
+            if (sean_sum > max)
+                max = sean_sum;
+        }
     }
-    return 0;
+    return max;
 }
