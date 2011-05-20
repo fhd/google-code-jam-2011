@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(test_sample_2)
 {
     std::vector<int> elements;
     elements += 1, 3, 2;
-    BOOST_REQUIRE_EQUAL(3, number_of_hits(elements));
+    BOOST_REQUIRE_EQUAL(2, number_of_hits(elements));
 }
 
 BOOST_AUTO_TEST_CASE(test_sample_3)

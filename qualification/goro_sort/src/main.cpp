@@ -22,9 +22,24 @@ void process(const std::string& input_file, const std::string& output_file)
       if (line.empty())
          continue;
 
-      // TODO: I/O
+      // Only every second line is relevant.
+      if (i % 2 == 0)
+          continue;
+
+      std::vector<int> elements;
+      typedef boost::split_iterator<std::string::iterator>
+          string_split_iterator;
+      for (string_split_iterator it = boost::make_split_iterator(
+               line, boost::first_finder(" ", boost::is_equal()));
+           it != string_split_iterator(); it++)
+          elements.push_back(boost::lexical_cast<int>(*it));
+
+      output << "Case #" << j++ << ": "
+             << number_of_hits(elements)
+             << std::endl;
    }
 }
+
 
 int main(int argc, char *argv[])
 {
