@@ -1,40 +1,19 @@
-#include <vector>
 #include <algorithm>
+#include <numeric>
+#include <vector>
 
-inline int patrick_sum(std::vector<int>& numbers)
+inline int bitwise_xor(int a, int b)
 {
-    int sum = 0;
-    for (int i = 0; i < numbers.size(); i++)
-        sum ^= numbers[i];
-    return sum;
+    return a ^ b;
 }
 
-inline int sum(std::vector<int>& numbers)
-{
-    int sum = 0;
-    for (int i = 0; i < numbers.size(); i++)
-        sum += numbers[i];
-    return sum;
+inline bool is_patrick_happy(std::vector<int>& candy) {
+    return std::accumulate(candy.begin(), candy.end(), 0, &bitwise_xor) == 0;
 }
 
 inline int candy_to_keep(std::vector<int>& candy)
 {
-    // TODO: This shouldn't work for all inputs, because only a single
-    // permuation of the candy is considered.
-    int max = 0;
-    for (int i = 0; i < candy.size(); i++) {
-        std::vector<int> sean(candy), patrick;
-        for (int j = 0; j <= i; j++) {
-            patrick.push_back(sean[j]);
-            sean[j] = 0;
-        }
-
-        if (!patrick.empty() && !sean.empty()
-            && patrick_sum(patrick) == patrick_sum(sean)) {
-            int sean_sum = sum(sean);
-            if (sean_sum > max)
-                max = sean_sum;
-        }
-    }
-    return max;
+    return (!is_patrick_happy(candy)) ? 0
+        : std::accumulate(candy.begin(), candy.end(),
+                          -1 * *std::min_element(candy.begin(), candy.end()));
 }
