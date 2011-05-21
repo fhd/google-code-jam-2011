@@ -17,12 +17,19 @@ void process(const std::string& input_file, const std::string& output_file)
    std::ofstream output(output_file.c_str());
    std::string line;
    std::getline(input, line); // Ignore the first line.
-   int j = 1;
-   for (int i = 0; std::getline(input, line); i++) {
+   for (int i = 1; std::getline(input, line); i++) {
       if (line.empty())
          continue;
 
-      // TODO: I/O
+      std::vector<std::string> elements;
+      boost::split(elements, line, boost::is_any_of(" "));
+      long max_games_today = boost::lexical_cast<long>(elements[0]);
+      long won_today = boost::lexical_cast<long>(elements[1]);
+      long won_total = boost::lexical_cast<long>(elements[2]);
+      output << "Case #" << i << ": "
+             << (is_possible(max_games_today, won_today, won_total) ? "Possible"
+                 : "Broken")
+             << std::endl;
    }
 }
 
