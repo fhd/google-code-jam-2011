@@ -1,1 +1,2 @@
 add_subdirectory(square_tiles)
+add_subdirectory(perfect_harmony)
