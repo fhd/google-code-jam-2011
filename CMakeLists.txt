@@ -4,4 +4,5 @@ enable_testing()
 add_subdirectory(qualification)
 add_subdirectory(round1a)
 add_subdirectory(round1b)
+add_subdirectory(round1c)
 
