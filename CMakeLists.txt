@@ -3,4 +3,5 @@ project(google-code-jam-2011)
 enable_testing()
 add_subdirectory(qualification)
 add_subdirectory(round1a)
+add_subdirectory(round1b)
 
