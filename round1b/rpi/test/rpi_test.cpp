@@ -1,12 +1,43 @@
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MAIN
 
+#include <sstream>
 #include <boost/test/unit_test.hpp>
 #include <boost/assign.hpp>
 #include <boost/algorithm/string.hpp>
 #include <rpi.hpp>
 
 using namespace boost::assign;
+#include <iostream>
+BOOST_AUTO_TEST_CASE(test_process_input)
+{
+    std::istringstream input("\
+2\n\
+3\n\
+.10\n\
+0.1\n\
+10.\n\
+4\n\
+.11.\n\
+0.00\n\
+01.1\n\
+.10.\n");
+    std::ostringstream output;
+
+    process_input(input, output);
+
+    std::string expected = "\
+Case #1:\n\
+0.5\n\
+0.5\n\
+0.5\n\
+Case #2:\n\
+0.645833\n\
+0.368056\n\
+0.604167\n\
+0.395833\n";
+    BOOST_REQUIRE_EQUAL(output.str(), expected);
+}
 
 template<class T>
 std::string collection_to_string(T collection)
