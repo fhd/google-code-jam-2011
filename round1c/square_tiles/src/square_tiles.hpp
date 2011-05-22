@@ -9,8 +9,6 @@
 enum Tile {B, W, R1, R2};
 typedef boost::multi_array<Tile, 2> Picture;
 
-inline std::string picture_to_string(const Picture&);
-
 inline bool replace_blue_tiles(Picture& picture)
 {
     if (picture.size() < 2 || picture[0].size() < 2) {
