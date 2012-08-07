@@ -1,5 +1,6 @@
 include_directories(../src)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(goro_sort_test goro_sort_test.cpp)
 target_link_libraries(goro_sort_test ${Boost_LIBRARIES})
