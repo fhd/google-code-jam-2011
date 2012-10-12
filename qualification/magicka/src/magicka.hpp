@@ -6,8 +6,8 @@ struct Combination {
     char second;
     char result;
 
-    Combination(char first, char second, char result) :
-        first(first), second(second), result(result) {}
+    Combination(char first, char second, char result)
+        : first(first), second(second), result(result) {}
 };
 
 struct Opposition {
